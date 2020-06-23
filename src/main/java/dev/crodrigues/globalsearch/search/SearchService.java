@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dev.crodrigues.globalsearch.search.api.SearchQuery;
 import dev.crodrigues.globalsearch.search.api.SearchResult;
 import dev.crodrigues.globalsearch.search.api.Searchable;
 
@@ -21,13 +22,13 @@ public class SearchService {
         this.searchableImplementations = searchableImplementations;
     }
 
-    public List<SearchResult> getResults(String query) {
+    public List<SearchResult> getResults(final SearchQuery query) {
         return searchableImplementations
                 .stream()
                 .map(searchable -> searchable.getResults(query))
                 .filter(Objects::nonNull)
                 .flatMap(Collection::stream)
-                .limit(5)
+                .limit(query.getLimit())
                 .collect(Collectors.toList());
     }
 

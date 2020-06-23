@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.crodrigues.globalsearch.search.api.SearchQuery;
 import dev.crodrigues.globalsearch.search.api.SearchResult;
 
 @RestController
@@ -23,7 +24,9 @@ public class SearchController {
 
     @GetMapping
     public List<SearchResult> getResults(@RequestParam("query") String query) {
-        return searchService.getResults(query);
+        final SearchQuery searchQuery = new SearchQuery(query, 10);
+
+        return searchService.getResults(searchQuery);
     }
 
 }

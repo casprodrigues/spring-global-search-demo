@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface Searchable {
 
-    List<SearchResult> getResults(final String query);
+    List<SearchResult> getResults(final SearchQuery query);
     
 }
