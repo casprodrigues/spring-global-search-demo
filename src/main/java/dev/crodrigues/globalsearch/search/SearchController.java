@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.crodrigues.globalsearch.search.api.SearchQuery;
@@ -23,10 +22,8 @@ public class SearchController {
     }
 
     @GetMapping
-    public List<SearchResult> getResults(@RequestParam("query") String query) {
-        final SearchQuery searchQuery = new SearchQuery(query, 10);
-
-        return searchService.getResults(searchQuery);
+    public List<SearchResult> getResults(final SearchQuery query) {
+        return searchService.getResults(query);
     }
 
 }
