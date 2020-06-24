@@ -22,9 +22,9 @@ public class SearchServiceTestEmptySearchables {
     
     @Test
     void whenSearchableListIsNull_thenEmptyResults() {
-        final SearchQuery query = new SearchQuery("query", 10);
+        final SearchQuery query = new SearchQuery("query", Long.valueOf(10));
 
-        List<SearchResult> searchResults = searchService.getResults(query);
+        List<SearchResult> searchResults = searchService.getResultsForQuery(query);
 
         assertTrue(searchResults.isEmpty());
     }

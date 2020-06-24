@@ -22,10 +22,10 @@ public class SearchService {
         this.searchableImplementations = searchableImplementations;
     }
 
-    public List<SearchResult> getResults(final SearchQuery query) {
+    public List<SearchResult> getResultsForQuery(final SearchQuery query) {
         return searchableImplementations
                 .stream()
-                .map(searchable -> searchable.getResults(query))
+                .map(searchable -> searchable.getResultsForQuery(query))
                 .filter(Objects::nonNull)
                 .flatMap(Collection::stream)
                 .limit(query.getLimit())

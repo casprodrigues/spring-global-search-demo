@@ -47,84 +47,84 @@ public class SearchServiceTest {
 
     @Test
     void whenAllSearchablesReturnsEmptyList_thenEmptyResults() {
-        when(mockSearchable1.getResults(any(SearchQuery.class)))
+        when(mockSearchable1.getResultsForQuery(any(SearchQuery.class)))
                 .thenReturn(Collections.emptyList());
-        when(mockSearchable2.getResults(any(SearchQuery.class)))
+        when(mockSearchable2.getResultsForQuery(any(SearchQuery.class)))
                 .thenReturn(Collections.emptyList());
-        when(mockSearchable3.getResults(any(SearchQuery.class)))
+        when(mockSearchable3.getResultsForQuery(any(SearchQuery.class)))
                 .thenReturn(Collections.emptyList());
-        when(mockSearchable4.getResults(any(SearchQuery.class)))
+        when(mockSearchable4.getResultsForQuery(any(SearchQuery.class)))
                 .thenReturn(Collections.emptyList());
 
         final long limit = 10;
         final SearchQuery query = new SearchQuery("query", limit);
-        List<SearchResult> searchResults = searchService.getResults(query);
+        List<SearchResult> searchResults = searchService.getResultsForQuery(query);
 
         assertTrue(searchResults.isEmpty());
-        verify(mockSearchable1).getResults(query);
-        verify(mockSearchable2).getResults(query);
-        verify(mockSearchable3).getResults(query);
-        verify(mockSearchable4).getResults(query);
+        verify(mockSearchable1).getResultsForQuery(query);
+        verify(mockSearchable2).getResultsForQuery(query);
+        verify(mockSearchable3).getResultsForQuery(query);
+        verify(mockSearchable4).getResultsForQuery(query);
     }
 
     @Test
     void whenAllSearchableReturnsNull_thenEmptyResults() {
-        when(mockSearchable1.getResults(any(SearchQuery.class)))
+        when(mockSearchable1.getResultsForQuery(any(SearchQuery.class)))
                 .thenReturn(null);
-        when(mockSearchable2.getResults(any(SearchQuery.class)))
+        when(mockSearchable2.getResultsForQuery(any(SearchQuery.class)))
                 .thenReturn(null);
-        when(mockSearchable3.getResults(any(SearchQuery.class)))
+        when(mockSearchable3.getResultsForQuery(any(SearchQuery.class)))
                 .thenReturn(null);
-        when(mockSearchable4.getResults(any(SearchQuery.class)))
+        when(mockSearchable4.getResultsForQuery(any(SearchQuery.class)))
                 .thenReturn(null);
 
         final long limit = 10;
         final SearchQuery query = new SearchQuery("query", limit);
-        List<SearchResult> searchResults = searchService.getResults(query);
+        List<SearchResult> searchResults = searchService.getResultsForQuery(query);
 
         assertTrue(searchResults.isEmpty());
-        verify(mockSearchable1).getResults(query);
-        verify(mockSearchable2).getResults(query);
-        verify(mockSearchable3).getResults(query);
-        verify(mockSearchable4).getResults(query);
+        verify(mockSearchable1).getResultsForQuery(query);
+        verify(mockSearchable2).getResultsForQuery(query);
+        verify(mockSearchable3).getResultsForQuery(query);
+        verify(mockSearchable4).getResultsForQuery(query);
     }
 
     @Test
     void whenSearchableReturnsResults_thenReturnResults() {
-        when(mockSearchable1.getResults(any(SearchQuery.class)))
+        when(mockSearchable1.getResultsForQuery(any(SearchQuery.class)))
                 .thenReturn(SearchTestUtils.buildSearchResultsWithPrefix("Mock1", 1));
-        when(mockSearchable2.getResults(any(SearchQuery.class)))
+        when(mockSearchable2.getResultsForQuery(any(SearchQuery.class)))
                 .thenReturn(SearchTestUtils.buildSearchResultsWithPrefix("Mock2", 1));
-        when(mockSearchable3.getResults(any(SearchQuery.class)))
+        when(mockSearchable3.getResultsForQuery(any(SearchQuery.class)))
                 .thenReturn(SearchTestUtils.buildSearchResultsWithPrefix("Mock3", 1));
-        when(mockSearchable4.getResults(any(SearchQuery.class)))
+        when(mockSearchable4.getResultsForQuery(any(SearchQuery.class)))
                 .thenReturn(SearchTestUtils.buildSearchResultsWithPrefix("Mock4", 1));
 
         final long limit = 10;
         final SearchQuery query = new SearchQuery("query", limit);
-        List<SearchResult> searchResults = searchService.getResults(query);
+        List<SearchResult> searchResults = searchService.getResultsForQuery(query);
 
         assertEquals(4, searchResults.size());
         assertEquals("Mock1 1", searchResults.get(0).getTitle());
         assertEquals("Mock2 1", searchResults.get(1).getTitle());
         assertEquals("Mock3 1", searchResults.get(2).getTitle());
         assertEquals("Mock4 1", searchResults.get(3).getTitle());
-        verify(mockSearchable1).getResults(query);
-        verify(mockSearchable2).getResults(query);
-        verify(mockSearchable3).getResults(query);
-        verify(mockSearchable4).getResults(query);
+        verify(mockSearchable1).getResultsForQuery(query);
+        verify(mockSearchable2).getResultsForQuery(query);
+        verify(mockSearchable3).getResultsForQuery(query);
+        verify(mockSearchable4).getResultsForQuery(query);
     }
 
     @Test
     void whenSearchableReturnsExceedLimits_thenDoNotInteractWithSubsequentSearchables() {
-        when(mockSearchable1.getResults(any(SearchQuery.class)))
+        when(mockSearchable1.getResultsForQuery(any(SearchQuery.class)))
                 .thenReturn(SearchTestUtils.buildSearchResultsWithPrefix("Mock1", 8));
-        when(mockSearchable2.getResults(any(SearchQuery.class)))
+        when(mockSearchable2.getResultsForQuery(any(SearchQuery.class)))
                 .thenReturn(SearchTestUtils.buildSearchResultsWithPrefix("Mock2", 8));
 
         final long limit = 10;
         final SearchQuery query = new SearchQuery("query", limit);
-        List<SearchResult> searchResults = searchService.getResults(query);
+        List<SearchResult> searchResults = searchService.getResultsForQuery(query);
 
         assertEquals(limit, searchResults.size());
         assertEquals("Mock1 1", searchResults.get(0).getTitle());
@@ -137,8 +137,8 @@ public class SearchServiceTest {
         assertEquals("Mock1 8", searchResults.get(7).getTitle());
         assertEquals("Mock2 1", searchResults.get(8).getTitle());
         assertEquals("Mock2 2", searchResults.get(9).getTitle());
-        verify(mockSearchable1).getResults(query);
-        verify(mockSearchable2).getResults(query);
+        verify(mockSearchable1).getResultsForQuery(query);
+        verify(mockSearchable2).getResultsForQuery(query);
         verifyNoInteractions(mockSearchable3);
         verifyNoInteractions(mockSearchable4);
     }
