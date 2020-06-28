@@ -16,20 +16,20 @@ public class Employee {
     @Id
     private Integer id;
 
-    private String  lastName;
-    private String  firstName;
-    private String  email;
-    private String  avatar;
-    private String  jobTitle;
-    private String  department;
+    private String lastName;
+    private String firstName;
+    private String email;
+    private String avatar;
+    private String jobTitle;
+    private String department;
     private Integer managerId;
-    private String  phone;
-    private String  address1;
-    private String  address2;
-    private String  city;
-    private String  state;
-    private String  postalCode;
-    private String  country;
+    private String phone;
+    private String address1;
+    private String address2;
+    private String city;
+    private String state;
+    private String postalCode;
+    private String country;
 
     public String getFullName() {
         return String.format("%s %s", firstName, lastName);
