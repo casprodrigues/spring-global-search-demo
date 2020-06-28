@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +26,7 @@ public class CustomerSearchableService implements Searchable {
     @Override
     public List<SearchResult> getResultsForQuery(SearchQuery query) {
         final String queryStr = query.getQuery();
-        final Pageable pageRequest = PageRequest.of(0, Math.toIntExact(query.getLimit()));
+        final Pageable pageRequest = query.asPageRequest();
 
         return customerRepository
                 .findByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContaining(queryStr, queryStr, pageRequest)

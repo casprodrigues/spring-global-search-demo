@@ -27,5 +27,13 @@ public class Customer {
     private String state;
     private String postalCode;
     private String country;
+
+    public String getFullName() {
+        return String.format("%s %s", firstName, lastName);
+    }
+
+    public String getContactDetailsAsString() {
+        return String.format("%s %s", email, phone);
+    }
     
 }

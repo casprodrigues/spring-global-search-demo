@@ -4,13 +4,16 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 import lombok.Value;
 
 @Value
 public final class SearchQuery {
 
-    private static String DEFAULT_QUERY = "";
-    private static long DEFAULT_LIMIT = 5;
+    private static final String DEFAULT_QUERY = "";
+    private static final long DEFAULT_LIMIT = 5;
 
     @Size(max = 100)
     private String query;
@@ -22,6 +25,10 @@ public final class SearchQuery {
     public SearchQuery(String query, Long limit) {
         this.query = query == null ? DEFAULT_QUERY : query;
         this.limit = limit == null ? DEFAULT_LIMIT : limit.longValue();
+    }
+
+    public Pageable asPageRequest() {
+        return PageRequest.of(0, Math.toIntExact(limit));
     }
 
 }

@@ -11,16 +11,18 @@ import dev.crodrigues.globalsearch.search.api.SearchResult;
 public class CustomerConverter {
 
     public SearchResult convertCustomerToSearchResult(final Customer customer) {
-        final String title = String.format("%s %s", customer.getFirstName(), customer.getLastName());
-        final String excerpt = String.format("%s %s", customer.getEmail(), customer.getPhone());
-        final Link url = linkTo(CustomerController.class).slash(customer.getId()).withSelfRel();
-
         return SearchResult.builder()
-                .entityType(customer.getClass().getSimpleName())
-                .title(title)
-                .excerpt(excerpt)
-                .url(url)
+                .entityType("customer")
+                .title(customer.getFullName())
+                .excerpt(customer.getContactDetailsAsString())
+                .url(buildLinkToCustomer(customer))
                 .build();
+    }
+
+    private Link buildLinkToCustomer(final Customer customer) {
+        return linkTo(CustomerController.class)
+                .slash(customer.getId())
+                .withSelfRel();
     }
     
 }
