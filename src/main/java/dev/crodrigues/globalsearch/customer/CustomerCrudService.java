@@ -3,6 +3,8 @@ package dev.crodrigues.globalsearch.customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dev.crodrigues.globalsearch.exceptions.ResourceNotFoundException;
+
 @Service
 public class CustomerCrudService {
     
@@ -16,7 +18,7 @@ public class CustomerCrudService {
     public Customer getCustomerById(final Integer id) {
         return customerRepository
                 .findById(id)
-                .orElse(null); // TODO throw exception
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
 }
